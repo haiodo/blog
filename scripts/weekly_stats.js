@@ -364,7 +364,7 @@ function getRepoStats(repoPath, repoName, branch, weekAgo, today) {
   // Получить статистику CLOC (общее количество строк кода)
   colorLog(`📏 Analyzing codebase size with CLOC...`, 'cyan');
   const clocOutput = execGitCommand(
-    `cloc --json --exclude-dir=node_modules,.git,lib,dist,build,out .`,
+    `cloc --json --exclude-dir=node_modules,.git,lib,dist,build,out --exclude-ext=js .`,
     repoPath
   );
 
@@ -383,21 +383,29 @@ function getRepoStats(repoPath, repoName, branch, weekAgo, today) {
       if (jsonStart !== -1) {
         const jsonString = clocOutput.substring(jsonStart);
         const clocData = JSON.parse(jsonString);
-        
+
         if (clocData.SUM) {
           clocStats = {
             totalFiles: clocData.SUM.nFiles || 0,
-            totalLines: (clocData.SUM.code || 0) + (clocData.SUM.comment || 0) + (clocData.SUM.blank || 0),
+            totalLines:
+              (clocData.SUM.code || 0) +
+              (clocData.SUM.comment || 0) +
+              (clocData.SUM.blank || 0),
             totalCode: clocData.SUM.code || 0,
             totalComments: clocData.SUM.comment || 0,
             totalBlank: clocData.SUM.blank || 0,
           };
-          colorLog(`📏 CLOC: ${clocStats.totalCode.toLocaleString()} lines of code, ${clocStats.totalFiles.toLocaleString()} files`, 'green');
+          colorLog(
+            `📏 CLOC: ${clocStats.totalCode.toLocaleString()} lines of code, ${clocStats.totalFiles.toLocaleString()} files`,
+            'green'
+          );
         }
       }
     } catch (error) {
       // Если не удалось распарсить JSON, используем значения по умолчанию
-      console.log(`Warning: Could not parse cloc output for ${repoName}: ${error.message}`);
+      console.log(
+        `Warning: Could not parse cloc output for ${repoName}: ${error.message}`
+      );
     }
   }
 
