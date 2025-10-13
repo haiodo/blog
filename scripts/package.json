@@ -7,7 +7,13 @@
     "stats": "node weekly_stats.js",
     "weekly": "node weekly_stats.js"
   },
-  "keywords": ["git", "statistics", "weekly", "commits", "analysis"],
+  "keywords": [
+    "git",
+    "statistics",
+    "weekly",
+    "commits",
+    "analysis"
+  ],
   "author": "Andrey Sobolev",
   "license": "MIT"
 }
