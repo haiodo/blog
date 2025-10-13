@@ -7,6 +7,8 @@
 5. Platform: /Users/haiodo/Develop/private/hardware/uberflow/anticrm origin/staging-new
 6. Communication: /Users/haiodo/Develop/private/hardware/communication origin/main
 7. HulyRS: /Users/haiodo/Develop/private/hardware/hulyrs origin/main
-8. Huly AI Agent: /Users/haiodo/Develop/private/hardware/huly-ai-agent origin/main
+8. Huly AI Agent: /Users/haiodo/Develop/private/hardware/huly-ai-agent origin/master
 9. Huly gun: /Users/haiodo/Develop/private/hardware/hulygun origin/main
 10. Hulyram: /Users/haiodo/Develop/private/hardware/hulygram origin/main
+11. Huly Browser: /Users/haiodo/Develop/private/hardware/huly.browser origin/main
+12. Huly Coder: /Users/haiodo/Develop/private/hardware/huly-coder origin/main

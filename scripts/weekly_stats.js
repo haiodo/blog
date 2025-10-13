@@ -294,13 +294,45 @@ function getRepoStats(repoPath, repoName, branch, weekAgo, today) {
       .map((line) => {
         const match = line.trim().match(/^\s*(\d+)\s+(.+)$/);
         if (match) {
-          return { name: match[2], commits: parseInt(match[1]) };
+          const authorName = match[2];
+          const commits = parseInt(match[1]);
+
+          // Получаем статистику по строкам для этого контрибьютора
+          const authorStatsOutput = execGitCommand(
+            `git log --since="${weekAgo}" --until="${today}" --author="${authorName}" --numstat --pretty=format:""`,
+            repoPath
+          );
+
+          let linesAdded = 0;
+          let linesDeleted = 0;
+
+          if (authorStatsOutput) {
+            const authorLines = authorStatsOutput
+              .split('\n')
+              .filter((line) => line.trim() && !line.startsWith('commit'));
+
+            authorLines.forEach((line) => {
+              const parts = line.trim().split('\t');
+              if (parts.length >= 2) {
+                const added = parseInt(parts[0]) || 0;
+                const deleted = parseInt(parts[1]) || 0;
+                linesAdded += added;
+                linesDeleted += deleted;
+              }
+            });
+          }
+
+          return {
+            name: authorName,
+            commits: commits,
+            linesAdded: linesAdded,
+            linesDeleted: linesDeleted,
+            netChanges: linesAdded - linesDeleted,
+          };
         }
         return null;
       })
-      .filter((contributor) => contributor !== null);
-
-    // Топ-3 для таблицы
+      .filter((contributor) => contributor !== null); // Топ-3 для таблицы
     topContributors = allContributors.slice(0, 3);
   }
 
@@ -364,7 +396,7 @@ function getRepoStats(repoPath, repoName, branch, weekAgo, today) {
   // Получить статистику CLOC (общее количество строк кода)
   colorLog(`📏 Analyzing codebase size with CLOC...`, 'cyan');
   const clocOutput = execGitCommand(
-    `cloc --json --exclude-dir=node_modules,.git,lib,dist,build,out --exclude-ext=js .`,
+    `cloc --json --exclude-dir=node_modules,.git,lib,dist,build,out --exclude-ext=js,json,yaml .`,
     repoPath
   );
 
@@ -441,22 +473,29 @@ function generateMarkdownTable(
   weekAgo,
   today
 ) {
-  let markdown = `# Weekly Git Statistics Report\n\n`;
-  markdown += `**Period:** ${weekAgo} to ${today}\n`;
-  markdown += `**Generated:** ${new Date().toLocaleString()}\n\n`;
+  let markdown = `# 📊 Weekly Git Statistics Report\n\n`;
+  markdown += `> **Period:** ${weekAgo} to ${today}  \n`;
+  markdown += `> **Generated:** ${new Date().toLocaleString()}  \n`;
+  markdown += `> **Repositories:** ${repositories.length}\n\n`;
+  markdown += `---\n\n`;
 
   // Основная таблица статистики
-  markdown += `## Repository Statistics\n\n`;
-  markdown += `| Repository | My Commits | My Lines +/- | Total Commits | Total Lines +/- | Contributors | My Contribution % | Top Contributors | Codebase Size |\n`;
-  markdown += `|------------|------------|--------------|---------------|-----------------|--------------|-------------------|------------------|---------------|\n`;
+  markdown += `## 📋 Repository Statistics Overview\n\n`;
+  markdown += `| Repository | My Commits | My Lines +/- | Total Commits | Total Lines +/- | Contributors | My Contribution % | Top Contributors | Tags Created | Codebase Size |\n`;
+  markdown += `|------------|------------|--------------|---------------|-----------------|--------------|-------------------|------------------|--------------|---------------|\n`;
 
   allStats.forEach((stats, index) => {
     const repo = repositories[index];
     const myNetChange = stats.linesAdded - stats.linesDeleted;
     const totalNetChange = stats.totalLinesAdded - stats.totalLinesDeleted;
-    const myChangeStr = myNetChange >= 0 ? `+${myNetChange}` : `${myNetChange}`;
+    const myChangeStr =
+      myNetChange >= 0
+        ? `+${myNetChange.toLocaleString()}`
+        : `${myNetChange.toLocaleString()}`;
     const totalChangeStr =
-      totalNetChange >= 0 ? `+${totalNetChange}` : `${totalNetChange}`;
+      totalNetChange >= 0
+        ? `+${totalNetChange.toLocaleString()}`
+        : `${totalNetChange.toLocaleString()}`;
     const contributionStr = stats.myContribution.toFixed(1);
 
     // Форматируем топ контрибьюторов
@@ -466,11 +505,17 @@ function generateMarkdownTable(
         .join(', ') || 'N/A';
 
     // Форматируем размер кодовой базы
-    const codebaseStr = `${stats.clocStats.totalCode.toLocaleString()} lines (${
-      stats.clocStats.totalFiles
-    } files)`;
+    const codebaseStr = `${stats.clocStats.totalCode.toLocaleString()} lines (${stats.clocStats.totalFiles.toLocaleString()} files)`;
 
-    markdown += `| ${repo.name} | ${stats.commits} | +${stats.linesAdded}/-${stats.linesDeleted} (${myChangeStr}) | ${stats.totalCommits} | +${stats.totalLinesAdded}/-${stats.totalLinesDeleted} (${totalChangeStr}) | ${stats.totalContributors} | ${contributionStr}% | ${topContributorsStr} | ${codebaseStr} |\n`;
+    markdown += `| ${repo.name} | ${
+      stats.commits
+    } | +${stats.linesAdded.toLocaleString()}/-${stats.linesDeleted.toLocaleString()} (${myChangeStr}) | ${
+      stats.totalCommits
+    } | +${stats.totalLinesAdded.toLocaleString()}/-${stats.totalLinesDeleted.toLocaleString()} (${totalChangeStr}) | ${
+      stats.totalContributors
+    } | ${contributionStr}% | ${topContributorsStr} | ${
+      stats.tags
+    } | ${codebaseStr} |\n`;
   });
 
   // Общая статистика
@@ -512,86 +557,214 @@ function generateMarkdownTable(
       .join(', ') || 'N/A';
 
   // Форматируем общую статистику кодовой базы
-  const totalCodebaseStr = `${totalStats.clocStats.totalCode.toLocaleString()} lines (${
-    totalStats.clocStats.totalFiles
-  } files)`;
+  const totalCodebaseStr = `${totalStats.clocStats.totalCode.toLocaleString()} lines (${totalStats.clocStats.totalFiles.toLocaleString()} files)`;
 
-  markdown += `| **TOTAL** | **${totalStats.commits}** | **+${
-    totalStats.linesAdded
-  }/-${totalStats.linesDeleted} (${myTotalChangeStr})** | **${
+  const myTotalChangeStrFormatted =
+    myTotalNetChange >= 0
+      ? `+${myTotalNetChange.toLocaleString()}`
+      : `${myTotalNetChange.toLocaleString()}`;
+  const globalTotalChangeStrFormatted =
+    globalTotalNetChange >= 0
+      ? `+${globalTotalNetChange.toLocaleString()}`
+      : `${globalTotalNetChange.toLocaleString()}`;
+
+  markdown += `| **TOTAL** | **${
+    totalStats.commits
+  }** | **+${totalStats.linesAdded.toLocaleString()}/-${totalStats.linesDeleted.toLocaleString()} (${myTotalChangeStrFormatted})** | **${
     totalStats.totalCommits
-  }** | **+${totalStats.totalLinesAdded}/-${
-    totalStats.totalLinesDeleted
-  } (${globalTotalChangeStr})** | **${
+  }** | **+${totalStats.totalLinesAdded.toLocaleString()}/-${totalStats.totalLinesDeleted.toLocaleString()} (${globalTotalChangeStrFormatted})** | **${
     totalStats.totalContributors
   }** | **${overallContribution.toFixed(
     1
-  )}%** | **${globalTopContributors}** | **${totalCodebaseStr}** |\n\n`;
+  )}%** | **${globalTopContributors}** | **${
+    totalStats.tags
+  }** | **${totalCodebaseStr}** |\n\n`;
 
   // Дополнительная статистика
-  markdown += `## Summary\n\n`;
-  markdown += `- **My Activity:**\n`;
-  markdown += `  - Commits: ${totalStats.commits}\n`;
-  markdown += `  - Files changed: ${totalStats.filesChanged}\n`;
-  markdown += `  - Tags created: ${totalStats.tags}\n`;
-  markdown += `  - Net code change: ${myTotalChangeStr} lines\n\n`;
+  markdown += `## 📈 Summary\n\n`;
 
-  markdown += `- **Team Activity:**\n`;
-  markdown += `  - Total commits: ${totalStats.totalCommits}\n`;
-  markdown += `  - Total contributors: ${totalStats.totalContributors}\n`;
-  markdown += `  - Total net change: ${globalTotalChangeStr} lines\n\n`;
+  markdown += `### 👤 My Activity\n`;
+  markdown += `| Metric | Value |\n`;
+  markdown += `|--------|-------|\n`;
+  markdown += `| Commits | ${totalStats.commits} |\n`;
+  markdown += `| Files changed | ${totalStats.filesChanged.toLocaleString()} |\n`;
+  markdown += `| Tags created | ${totalStats.tags} |\n`;
+  markdown += `| Lines added | +${totalStats.linesAdded.toLocaleString()} |\n`;
+  markdown += `| Lines deleted | -${totalStats.linesDeleted.toLocaleString()} |\n`;
+  markdown += `| Net change | ${myTotalChangeStr} lines |\n\n`;
 
-  markdown += `- **My Contribution:**\n`;
-  markdown += `  - Overall contribution to codebase changes: ${overallContribution.toFixed(
+  markdown += `### 👥 Team Activity\n`;
+  markdown += `| Metric | Value |\n`;
+  markdown += `|--------|-------|\n`;
+  markdown += `| Total commits | ${totalStats.totalCommits} |\n`;
+  markdown += `| Total contributors | ${totalStats.totalContributors} |\n`;
+  markdown += `| Total lines added | +${totalStats.totalLinesAdded.toLocaleString()} |\n`;
+  markdown += `| Total lines deleted | -${totalStats.totalLinesDeleted.toLocaleString()} |\n`;
+  markdown += `| Total net change | ${globalTotalChangeStr} lines |\n\n`;
+
+  markdown += `### 🎯 My Contribution Impact\n`;
+  markdown += `| Metric | Value |\n`;
+  markdown += `|--------|-------|\n`;
+  markdown += `| Overall contribution to codebase changes | ${overallContribution.toFixed(
     1
-  )}%\n`;
-  markdown += `  - Average contribution per repository: ${(
+  )}% |\n`;
+  markdown += `| Average contribution per repository | ${(
     overallContribution / repositories.length
-  ).toFixed(1)}%\n\n`;
+  ).toFixed(1)}% |\n`;
+  markdown += `| Repositories contributed to | ${
+    allStats.filter((s) => s.commits > 0).length
+  } of ${repositories.length} |\n\n`;
 
-  // Активность по репозиториям
-  markdown += `## Activity Breakdown\n\n`;
+  markdown += `---\n\n`;
+
+  // Таблица топ контрибьюторов по проектам
+  markdown += `## 🏆 Top Contributors Summary\n\n`;
+
+  // Собираем данные по всем контрибьюторам
+  const contributorProjects = new Map();
+
   allStats.forEach((stats, index) => {
     const repo = repositories[index];
-    if (stats.commits > 0) {
-      markdown += `### ${repo.name}\n`;
-      markdown += `- My commits: ${stats.commits} (${(
-        (stats.commits / stats.totalCommits) *
-        100
-      ).toFixed(1)}% of total)\n`;
-      markdown += `- My lines: +${stats.linesAdded}/-${stats.linesDeleted}\n`;
-      markdown += `- Repository total: +${stats.totalLinesAdded}/-${stats.totalLinesDeleted}\n`;
-      markdown += `- Contributors: ${stats.totalContributors}\n`;
-      markdown += `- My contribution: ${stats.myContribution.toFixed(1)}%\n`;
-      markdown += `- Codebase size: ${stats.clocStats.totalCode.toLocaleString()} lines of code\n`;
-      markdown += `  - Total files: ${stats.clocStats.totalFiles.toLocaleString()}\n`;
-      markdown += `  - Code: ${stats.clocStats.totalCode.toLocaleString()} lines\n`;
-      markdown += `  - Comments: ${stats.clocStats.totalComments.toLocaleString()} lines\n`;
-      markdown += `  - Blank: ${stats.clocStats.totalBlank.toLocaleString()} lines\n`;
-
-      if (stats.allContributors.length > 0) {
-        markdown += `- All contributors:\n`;
-        stats.allContributors.forEach((contributor, idx) => {
-          markdown += `  ${idx + 1}. ${contributor.name}: ${
-            contributor.commits
-          } commits\n`;
+    stats.allContributors.forEach((contributor) => {
+      if (!contributorProjects.has(contributor.name)) {
+        contributorProjects.set(contributor.name, {
+          name: contributor.name,
+          totalCommits: 0,
+          totalLinesAdded: 0,
+          totalLinesDeleted: 0,
+          totalNetChanges: 0,
+          projects: [],
         });
       }
 
+      const contributorData = contributorProjects.get(contributor.name);
+      contributorData.totalCommits += contributor.commits;
+      contributorData.totalLinesAdded += contributor.linesAdded || 0;
+      contributorData.totalLinesDeleted += contributor.linesDeleted || 0;
+      contributorData.totalNetChanges += contributor.netChanges || 0;
+      contributorData.projects.push({
+        name: repo.name,
+        commits: contributor.commits,
+        linesAdded: contributor.linesAdded || 0,
+        linesDeleted: contributor.linesDeleted || 0,
+      });
+    });
+  });
+
+  // Сортируем контрибьюторов по общему количеству коммитов
+  const sortedContributors = Array.from(contributorProjects.values())
+    .sort((a, b) => b.totalCommits - a.totalCommits)
+    .slice(0, 15); // Берем топ 15
+
+  markdown += `| Contributor | Total Commits | Lines Added | Lines Deleted | Net Changes | Projects Contributed |\n`;
+  markdown += `|-------------|---------------|-------------|---------------|-------------|---------------------|\n`;
+
+  sortedContributors.forEach((contributor) => {
+    const projectsStr = contributor.projects
+      .map((p) => `${p.name} (${p.commits})`)
+      .join(', ');
+
+    const netChangeStr =
+      contributor.totalNetChanges >= 0
+        ? `+${contributor.totalNetChanges}`
+        : `${contributor.totalNetChanges}`;
+
+    markdown += `| ${contributor.name} | ${contributor.totalCommits} | +${contributor.totalLinesAdded} | -${contributor.totalLinesDeleted} | ${netChangeStr} | ${projectsStr} |\n`;
+  });
+
+  markdown += `\n`;
+
+  markdown += `---\n\n`;
+
+  // Активность по репозиториям
+  markdown += `## 📦 Activity Breakdown by Repository\n\n`;
+  allStats.forEach((stats, index) => {
+    const repo = repositories[index];
+    if (stats.commits > 0) {
+      markdown += `### 📁 ${repo.name}\n\n`;
+
+      // Краткая статистика в таблице
+      markdown += `| Metric | My Stats | Repository Total |\n`;
+      markdown += `|--------|----------|------------------|\n`;
+      markdown += `| Commits | ${stats.commits} (${(
+        (stats.commits / stats.totalCommits) *
+        100
+      ).toFixed(1)}%) | ${stats.totalCommits} |\n`;
+      markdown += `| Lines Added | +${stats.linesAdded.toLocaleString()} | +${stats.totalLinesAdded.toLocaleString()} |\n`;
+      markdown += `| Lines Deleted | -${stats.linesDeleted.toLocaleString()} | -${stats.totalLinesDeleted.toLocaleString()} |\n`;
+      markdown += `| Contributors | - | ${stats.totalContributors} |\n`;
+      markdown += `| My Contribution | ${stats.myContribution.toFixed(
+        1
+      )}% | 100% |\n\n`;
+
+      // Codebase info
+      markdown += `**📊 Codebase Size:** ${stats.clocStats.totalCode.toLocaleString()} lines of code\n`;
+      markdown += `- Total files: ${stats.clocStats.totalFiles.toLocaleString()}\n`;
+      markdown += `- Code: ${stats.clocStats.totalCode.toLocaleString()} lines\n`;
+      markdown += `- Comments: ${stats.clocStats.totalComments.toLocaleString()} lines\n`;
+      markdown += `- Blank: ${stats.clocStats.totalBlank.toLocaleString()} lines\n\n`;
+
+      if (stats.allContributors.length > 0) {
+        markdown += `**👥 All Contributors:**\n\n`;
+        markdown += `| # | Contributor | Commits | Lines Added | Lines Deleted | Net Changes |\n`;
+        markdown += `|---|-------------|---------|-------------|---------------|-------------|\n`;
+        stats.allContributors.forEach((contributor, idx) => {
+          const netChange =
+            (contributor.linesAdded || 0) - (contributor.linesDeleted || 0);
+          const netChangeStr =
+            netChange >= 0 ? `+${netChange}` : `${netChange}`;
+          markdown += `| ${idx + 1} | ${contributor.name} | ${
+            contributor.commits
+          } | +${contributor.linesAdded || 0} | -${
+            contributor.linesDeleted || 0
+          } | ${netChangeStr} |\n`;
+        });
+        markdown += `\n`;
+      }
+
       if (stats.topCommits.length > 0) {
-        markdown += `\n- Top 20 commits by changes:\n`;
+        markdown += `\n#### 📊 Top 20 Commits by Changes\n\n`;
+        markdown += `| # | Hash | Author | Date | Message | Changes |\n`;
+        markdown += `|---|------|--------|------|---------|----------|\n`;
         stats.topCommits.forEach((commit, idx) => {
-          markdown += `  ${idx + 1}. \`${commit.hash}\` by **${
-            commit.author
-          }** (${commit.date})\n`;
-          markdown += `     - Message: ${commit.message}\n`;
-          markdown += `     - Changes: +${commit.linesAdded}/-${commit.linesDeleted} (${commit.totalChanges} total)\n`;
+          const shortHash = commit.hash.substring(0, 8);
+          const shortMessage =
+            commit.message.length > 60
+              ? commit.message.substring(0, 57) + '...'
+              : commit.message;
+          const changesStr = `+${commit.linesAdded}/-${commit.linesDeleted}`;
+          markdown += `| ${idx + 1} | \`${shortHash}\` | ${commit.author} | ${
+            commit.date
+          } | ${shortMessage} | ${changesStr} |\n`;
         });
       }
 
       markdown += `\n`;
     }
   });
+
+  markdown += `---\n\n`;
+
+  // Дополнительная таблица с тегами по репозиториям
+  markdown += `## 🏷️ Tags Summary\n\n`;
+  markdown += `Overview of tags created across all repositories during this period.\n\n`;
+  markdown += `| Repository | Tags Created | Total Codebase Size |\n`;
+  markdown += `|------------|--------------|--------------------|\n`;
+
+  allStats.forEach((stats, index) => {
+    const repo = repositories[index];
+    const codebaseStr = `${stats.clocStats.totalCode.toLocaleString()} lines`;
+    if (stats.tags > 0 || stats.commits > 0) {
+      markdown += `| ${repo.name} | ${stats.tags} | ${codebaseStr} |\n`;
+    }
+  });
+
+  const totalTags = allStats.reduce((sum, stats) => sum + stats.tags, 0);
+  const summaryCodebaseStr = `${totalStats.clocStats.totalCode.toLocaleString()} lines`;
+  markdown += `| **TOTAL** | **${totalTags}** | **${summaryCodebaseStr}** |\n\n`;
+
+  markdown += `---\n\n`;
+  markdown += `*Report generated by weekly_stats.js on ${new Date().toLocaleString()}*\n`;
 
   return markdown;
 }
