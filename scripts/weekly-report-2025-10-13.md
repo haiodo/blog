@@ -1,7 +1,7 @@
 # 📊 Weekly Git Statistics Report
 
 > **Period:** 2025-10-06 to 2025-10-13  
-> **Generated:** 10/13/2025, 12:58:03 PM  
+> **Generated:** 10/13/2025, 1:02:50 PM  
 > **Repositories:** 12
 
 ---
@@ -10,19 +10,19 @@
 
 | Repository | My Commits | My Lines +/- | Total Commits | Total Lines +/- | Contributors | My Contribution % | Top Contributors | Tags Created | Codebase Size |
 |------------|------------|--------------|---------------|-----------------|--------------|-------------------|------------------|--------------|---------------|
-| Huly.core | 33 | +63507/-2253 (+61254) | 36 | +63936/-2462 (+61474) | 2 | 99.3% | Andrey Sobolev (33), Alexander Onnikov (3) | 7 | 229,894 lines (2792 files) |
-| Huly.server | 21 | +45568/-1831 (+43737) | 26 | +46277/-1900 (+44377) | 2 | 98.5% | Andrey Sobolev (21), Alexander Onnikov (5) | 4 | 152,175 lines (1961 files) |
-| Huly.Utils | 23 | +5023/-1586 (+3437) | 23 | +5023/-1586 (+3437) | 1 | 100.0% | Andrey Sobolev (23) | 11 | 23,084 lines (857 files) |
-| Huly.Net | 3 | +260/-69 (+191) | 5 | +294/-83 (+211) | 2 | 88.4% | Andrey Sobolev (3), Denis Gladkiy (2) | 0 | 27,321 lines (788 files) |
-| Platform | 4 | +18461/-74615 (-56154) | 38 | +21278/-75958 (-54680) | 9 | 86.8% | Denis Bykhov (8), Alexey Zinoviev (7), Alexander Onnikov (6) | 6 | 839,517 lines (15028 files) |
-| Communication | 9 | +1698/-854 (+844) | 15 | +2481/-1092 (+1389) | 4 | 68.4% | Andrey Sobolev (9), Kristina (3), Alexander Onnikov (2) | 4 | 26,294 lines (1357 files) |
+| Huly.core | 33 | +63,507/-2,253 (+61,254) | 36 | +63,936/-2,462 (+61,474) | 2 | 99.3% | Andrey Sobolev (33), Alexander Onnikov (3) | 7 | 199,179 lines (843 files) |
+| Huly.server | 21 | +45,568/-1,831 (+43,737) | 26 | +46,277/-1,900 (+44,377) | 2 | 98.5% | Andrey Sobolev (21), Alexander Onnikov (5) | 4 | 116,240 lines (517 files) |
+| Huly.Utils | 23 | +5,023/-1,586 (+3,437) | 23 | +5,023/-1,586 (+3,437) | 1 | 100.0% | Andrey Sobolev (23) | 11 | 3,524 lines (59 files) |
+| Huly.Net | 3 | +260/-69 (+191) | 5 | +294/-83 (+211) | 2 | 88.4% | Andrey Sobolev (3), Denis Gladkiy (2) | 0 | 15,129 lines (162 files) |
+| Platform | 4 | +18,461/-74,615 (-56,154) | 38 | +21,278/-75,958 (-54,680) | 9 | 86.8% | Denis Bykhov (8), Alexey Zinoviev (7), Alexander Onnikov (6) | 6 | 542,831 lines (8,169 files) |
+| Communication | 9 | +1,698/-854 (+844) | 15 | +2,481/-1,092 (+1,389) | 4 | 68.4% | Andrey Sobolev (9), Kristina (3), Alexander Onnikov (2) | 4 | 13,446 lines (203 files) |
 | HulyRS | 0 | +0/-0 (+0) | 2 | +48/-4 (+44) | 2 | 0.0% | Nikolay Marchuk (1), Alexey Aristov (1) | 0 | 4,689 lines (35 files) |
-| Huly AI Agent | 0 | +0/-0 (+0) | 8 | +380/-124 (+256) | 1 | 0.0% | Konstantin Zaitsev (8) | 0 | 11,103 lines (128 files) |
+| Huly AI Agent | 0 | +0/-0 (+0) | 8 | +380/-124 (+256) | 1 | 0.0% | Konstantin Zaitsev (8) | 0 | 9,711 lines (85 files) |
 | Huly gun | 0 | +0/-0 (+0) | 0 | +0/-0 (+0) | 0 | 0.0% | N/A | 0 | 573 lines (8 files) |
 | Hulyram | 0 | +0/-0 (+0) | 6 | +491/-345 (+146) | 1 | 0.0% | Alexey Aristov (6) | 0 | 3,843 lines (27 files) |
-| Huly Browser | 0 | +0/-0 (+0) | 7 | +184/-90 (+94) | 1 | 0.0% | Nikita Skrynnik (7) | 3 | 14,714 lines (926 files) |
-| Huly Coder | 0 | +0/-0 (+0) | 0 | +0/-0 (+0) | 0 | 0.0% | N/A | 0 | 66,019 lines (2608 files) |
-| **TOTAL** | **93** | **+134517/-81208 (+53309)** | **166** | **+140392/-83644 (+56748)** | **9** | **95.8%** | **Andrey Sobolev (89), Alexander Onnikov (16), Denis Bykhov (8)** | **35** | **1,399,226 lines (26515 files)** |
+| Huly Browser | 0 | +0/-0 (+0) | 7 | +184/-90 (+94) | 1 | 0.0% | Nikita Skrynnik (7) | 3 | 8,577 lines (425 files) |
+| Huly Coder | 0 | +0/-0 (+0) | 0 | +0/-0 (+0) | 0 | 0.0% | N/A | 0 | 30,377 lines (1,259 files) |
+| **TOTAL** | **93** | **+134,517/-81,208 (+53,309)** | **166** | **+140,392/-83,644 (+56,748)** | **9** | **95.8%** | **Andrey Sobolev (89), Alexander Onnikov (16), Denis Bykhov (8)** | **35** | **948,119 lines (11,792 files)** |
 
 ## 📈 Summary
 
@@ -87,11 +87,11 @@
 | Contributors | - | 2 |
 | My Contribution | 99.3% | 100% |
 
-**📊 Codebase Size:** 229,894 lines of code
-- Total files: 2,792
-- Code: 229,894 lines
+**📊 Codebase Size:** 199,179 lines of code
+- Total files: 843
+- Code: 199,179 lines
 - Comments: 7,064 lines
-- Blank: 13,099 lines
+- Blank: 11,196 lines
 
 **👥 All Contributors:**
 
@@ -136,11 +136,11 @@
 | Contributors | - | 2 |
 | My Contribution | 98.5% | 100% |
 
-**📊 Codebase Size:** 152,175 lines of code
-- Total files: 1,961
-- Code: 152,175 lines
+**📊 Codebase Size:** 116,240 lines of code
+- Total files: 517
+- Code: 116,240 lines
 - Comments: 3,190 lines
-- Blank: 8,594 lines
+- Blank: 5,120 lines
 
 **👥 All Contributors:**
 
@@ -185,11 +185,11 @@
 | Contributors | - | 1 |
 | My Contribution | 100.0% | 100% |
 
-**📊 Codebase Size:** 23,084 lines of code
-- Total files: 857
-- Code: 23,084 lines
+**📊 Codebase Size:** 3,524 lines of code
+- Total files: 59
+- Code: 3,524 lines
 - Comments: 328 lines
-- Blank: 3,627 lines
+- Blank: 631 lines
 
 **👥 All Contributors:**
 
@@ -233,11 +233,11 @@
 | Contributors | - | 2 |
 | My Contribution | 88.4% | 100% |
 
-**📊 Codebase Size:** 27,321 lines of code
-- Total files: 788
-- Code: 27,321 lines
+**📊 Codebase Size:** 15,129 lines of code
+- Total files: 162
+- Code: 15,129 lines
 - Comments: 1,314 lines
-- Blank: 4,992 lines
+- Blank: 3,704 lines
 
 **👥 All Contributors:**
 
@@ -267,11 +267,11 @@
 | Contributors | - | 9 |
 | My Contribution | 86.8% | 100% |
 
-**📊 Codebase Size:** 839,517 lines of code
-- Total files: 15,028
-- Code: 839,517 lines
-- Comments: 104,674 lines
-- Blank: 90,323 lines
+**📊 Codebase Size:** 542,831 lines of code
+- Total files: 8,169
+- Code: 542,831 lines
+- Comments: 104,573 lines
+- Blank: 70,999 lines
 
 **👥 All Contributors:**
 
@@ -323,11 +323,11 @@
 | Contributors | - | 4 |
 | My Contribution | 68.4% | 100% |
 
-**📊 Codebase Size:** 26,294 lines of code
-- Total files: 1,357
-- Code: 26,294 lines
+**📊 Codebase Size:** 13,446 lines of code
+- Total files: 203
+- Code: 13,446 lines
 - Comments: 1,397 lines
-- Blank: 3,161 lines
+- Blank: 1,868 lines
 
 **👥 All Contributors:**
 
@@ -367,15 +367,15 @@ Overview of tags created across all repositories during this period.
 
 | Repository | Tags Created | Total Codebase Size |
 |------------|--------------|--------------------|
-| Huly.core | 7 | 229,894 lines |
-| Huly.server | 4 | 152,175 lines |
-| Huly.Utils | 11 | 23,084 lines |
-| Huly.Net | 0 | 27,321 lines |
-| Platform | 6 | 839,517 lines |
-| Communication | 4 | 26,294 lines |
-| Huly Browser | 3 | 14,714 lines |
-| **TOTAL** | **35** | **1,399,226 lines** |
+| Huly.core | 7 | 199,179 lines |
+| Huly.server | 4 | 116,240 lines |
+| Huly.Utils | 11 | 3,524 lines |
+| Huly.Net | 0 | 15,129 lines |
+| Platform | 6 | 542,831 lines |
+| Communication | 4 | 13,446 lines |
+| Huly Browser | 3 | 8,577 lines |
+| **TOTAL** | **35** | **948,119 lines** |
 
 ---
 
-*Report generated by weekly_stats.js on 10/13/2025, 12:58:03 PM*
+*Report generated by weekly_stats.js on 10/13/2025, 1:02:50 PM*
