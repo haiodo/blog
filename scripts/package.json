@@ -1,0 +1,13 @@
+{
+  "name": "weekly-git-stats",
+  "version": "1.0.0",
+  "description": "Script to analyze git statistics for the last week across multiple repositories",
+  "main": "weekly_stats.js",
+  "scripts": {
+    "stats": "node weekly_stats.js",
+    "weekly": "node weekly_stats.js"
+  },
+  "keywords": ["git", "statistics", "weekly", "commits", "analysis"],
+  "author": "Andrey Sobolev",
+  "license": "MIT"
+}
