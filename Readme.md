@@ -14,25 +14,8 @@
 
 1. [https://github.com/haiodo](https://github.com/haiodo)
 
-2. @dev_haiodo
-
-![Me](./img/me.jpeg)
+2. https://t.me/dev_haiodo
 
 ## Резюме
 
 Тут будет мое полное резюме того чего я делал про то что смогу рассказать, но в процессе все еще :-)
-
-## Daily Blob posts
-
-- [2025-10-24](./daily/008_2025_oct_24.md)
-- [2025-10-21](./daily/007_2025_oct_21.md)
-- [2025-10-20](./daily/006_2025_oct_20.md)
-- [2025-10-17](./daily/005_2025_oct_17.md)
-- [2025-10-16](./daily/004_2025_oct_16.md)
-- [2025-10-15](./daily/003_2025_oct_15.md)
-- [2025-10-14](./daily/002_2025_oct_14.md)
-- [2025-10-13](./daily/001_2025_oct_13.md)
-
-## Dev posts
-
-- [001 - Huly Mermaid diagrams](./posts/001_mermaid/001_mermaid.md) [English](./posts/001_mermaid/001_mermaid_english.md)
