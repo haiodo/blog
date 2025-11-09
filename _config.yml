@@ -2,6 +2,15 @@ title: "Andrey Sobolev(haiodo) Blog"
 author: "Andrey Sobolev"
 description: "Andrey Sobolev" # This will show up in places like twitter, linkedin, etc, if you share your sites url as a post.
 
+url: "https://haiodo.github.io"
+baseurl: ""
+
+exclude:
+  - posts
+  - scripts
+  - not-shared
+  - Readme.md
+
 # Email / Social media user names used by the minima theme:
 # All of these are optional and can be removed or commented out
 email: "haiodo@gmail.com"
