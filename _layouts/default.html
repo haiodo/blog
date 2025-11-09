@@ -1,0 +1,50 @@
+<!-- haiodo.blog/_layouts/default.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head></head>
+    {% include head.html %}
+  </head>
+
+  <body class="minima">
+    <!-- Navigation -->
+    {% include navlinks.html %}
+
+    <div style="display:flex; min-height:100vh;">
+      <!-- Left sidebar -->
+      <aside
+        style="
+          width: 250px;
+          padding: 1rem;
+          background:#f8f9fa;
+          border-right:1px solid #dee2e6;
+        "
+      >
+        <h3></h3>Posts</h3>
+        <ul style="list-style:none; padding-left:0;">
+          {% for post in site.posts %}
+            <li style="margin-bottom:.5rem;">
+              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </aside>
+
+      <!-- Main content -->
+      <main style="flex:1; padding:2rem;">
+        {{ content }}
+      </main>
+    </div>
+
+    <!-- Footer (optional) -->
+    <footer
+      style="
+        text-align:center;
+        padding:1rem 0;
+        background:#f8f9fa;
+        border-top:1px solid #dee2e6;
+      "
+    >
+      © {{ site.time | date: "%Y" }} {{ site.author }}
+    </footer>
+  </body>
+</html>

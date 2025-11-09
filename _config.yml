@@ -20,6 +20,7 @@ include:
 exclude:
   - posts
   - Readme.md
+  - scripts
 
 # Email / Social media user names used by the minima theme:
 # All of these are optional and can be removed or commented out
@@ -60,3 +61,4 @@ defaults:
       type: post
     values:
       tags: Other
+      layout: default
