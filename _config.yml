@@ -5,11 +5,21 @@ description: "Andrey Sobolev" # This will show up in places like twitter, linked
 # url: "https://haiodo.github.io"
 # baseurl: ""
 
+# Only include these directories
+include:
+  - _posts
+  - _layouts
+  - _includes
+  - assets
+  - images
+  - img
+
+# Exclude all markdown files not in _posts
 exclude:
-  - posts
-  - scripts
-  - not-shared
-  - Readme.md
+  - "*.md"
+  - "*.markdown"
+  - README.md
+  - LICENSE.md
 
 # Email / Social media user names used by the minima theme:
 # All of these are optional and can be removed or commented out
