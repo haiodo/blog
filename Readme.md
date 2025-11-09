@@ -4,8 +4,8 @@ Hi, My name is Andrey.
 
 I am a software developer who enjoys learning new technologies and sharing my knowledge with others.
 Started with Java,
-  * [DLTK](https://github.com/eclipse-dltk) [DLTK at Eclipse.org](https://www.eclipse.org/dltk/)
-  * [RCPTT](https://github.com/eclipse-rcptt) [RCPTT at Eclipse.org](https://www.eclipse.org/rcptt/)
+  * [DLTK](https://github.com/eclipse-dltk) => [DLTK at Eclipse.org](https://www.eclipse.org/dltk/)
+  * [RCPTT](https://github.com/eclipse-rcptt) => [RCPTT at Eclipse.org](https://www.eclipse.org/rcptt/)
 
 Continued with Go:
   * [NetworkServiceMesh](https://github.com/networkservicemesh)
@@ -24,3 +24,6 @@ How to find me:
 2. telegram: https://t.me/dev_haiodo
 3. github: https://github.com/haiodo
 4. Если вы из России, то можете купить мне кофе тут: https://boosty.to/haiodo
+
+
+![Haiodo GitHub stats](https://github-readme-stats.vercel.app/api?username=haiodo&show_icons=true&theme=transparent)
