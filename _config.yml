@@ -13,13 +13,13 @@ include:
   - assets
   - images
   - img
+  - index.md
+  - archive.md
 
 # Exclude all markdown files not in _posts
 exclude:
-  - "*.md"
-  - "*.markdown"
-  - README.md
-  - LICENSE.md
+  - posts
+  - Readme.md
 
 # Email / Social media user names used by the minima theme:
 # All of these are optional and can be removed or commented out
