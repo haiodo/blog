@@ -1,5 +1,9 @@
-# 17 Октября
+---
+title: October 17
+description: Daily for October 17, 2025
+---
 
+### Основное
 - Добавил код для лимитирования запросов в базу по памяти, но пока не включил в продукт.
   Смотрел через uptrace за поведением сервера, и он ведет себя стабильно, пики по памяти исчезли, и как теперь проверять?
 - Вспомнил что хотел добавить etag для всех запросов, надо записать.
@@ -8,7 +12,7 @@
 - Работаю над сервисом рейтингов документов, если все срастется сегодя первую версию выкачу.
   Рыбу уже сделал, сейчас доделаю начальные расчеты и займусь UI.
 
-Планы на сегодня:
+### Планы на сегодня:
 
 - Поломал счетчики по памяти как оказалось в последнем билде, починю.
 - Планирую Закончить с начальными рейтингами сделать UI для лайков на документы.
@@ -17,4 +21,6 @@
 
 Очередная ошибка в github сервисе
 
+```json
 {"err":{"message":"okit?.graphql is not a function","stack":"TypeError: okit?.graphql is not a function\n at ctx.with.issue (/usr/src/app/bundle.js:285815:27)\n at /usr/src/app/bundle.js:86092:88\n at AsyncLocalStorage.run (node:internal/async_local_storage/async_hooks:91:14)\n at AsyncLocalStorageContextManager.with (/usr/src/app/bundle.js:60890:40)\n at ContextAPI2.with (/usr/src/app/bundle.js:6699:55)\n at \_OpenTelemetryMetricsContext.with (/usr/src/app/bundle.js:86092:71)\n at PullRequestSyncManager.performIssueFieldsUpdate (/usr/src/app/bundle.js:285805:23)\n at process.processTicksAndRejections (node:internal/process/task_queues:105:5)\n at async PullRequestSyncManager.handleDiffUpdate (/usr/src/app/bundle.js:283846:26)"},"level":"error","message":"Error update pr","timestamp":"2025-10-17T13:07:42.631Z"}
+```

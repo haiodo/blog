@@ -1,0 +1,30 @@
+---
+title: RCP Testing Tool
+description: Dynamic Languages Toolkit
+---
+
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+
+[RCPTT](https://github.com/eclipse-rcptt) => [RCPTT at Eclipse.org](https://www.eclipse.org/rcptt/)
+
+RCP Testing Tool is a project for GUI testing automation of Eclipse-based applications. RCPTT is fully aware about Eclipse Platform’s internals, hiding this complexity from end users and allowing QA engineers to create highly reliable UI tests at great pace.
+
+
+### Key features
+* Test case creation productivity – ability to record user actions at the same level of efficiency as manual script creation, ability to capture initial/final application state into reusable models for further state restoring/verification.
+* First class support of Eclipse technologies – testing tool should be aware about key concepts of Eclipse Platform, including but not limited to Workspace, Workbench, Preferences, Debug API, as well as understand the underlying UI structure, like parts of Eclipse Workbench (views, editors, toolbars) and structure of GEF/GMF/Graphiti diagrams.
+* Intelligent runtime – automatic wait of UI-triggered background asynchronous operations (including jobs, display async/timer execs, decorations, databindings, text reconcilers, text hovers, and so on)
+* Reliable results – elemination of false negatives and false positives by isolation of test cases from each other, independence on screen size/operating system, etc.
+* Maintainability – test case artifacts should be easily modifyable to reflect UI changes and be version control system friendly
+* Extensibility – provide APIs for extending tool in order to support custom widgets, contexts, reports and async primitives.
+* Continuous Integration – CI Test Runner runs tests locally and in integration with Jenkins, Hudson, or other CI tools.
+
+### Workflow
+
+A typical workflow to create a test case which should work in most cases looks like this:
+
+* Capture an application state
+* Record test actions
+* Add assertions
+* More complex activities including test parameterization, extracting common pieces of functionality into reusable actions, writing test cases manually before UI, and test case debugging are also available. * Developers can extend the tool’s functionality to add record/replay support of custom widgets and capture/apply support of custom aspects of an application state.

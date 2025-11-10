@@ -1,0 +1,57 @@
+---
+title: Tenniarb
+description: A brain map editor for MacOS
+---
+
+import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
+
+import imgGeneralInfo from "../../../../assets/tenniarb/general_info.png";
+
+[Tenniarb](https://github.com/haiodo/tenniarb) - A brain map editor for MacOS.
+
+#  Tenniarb - General information
+
+Tenniarb is a diagram/modelling tool, capable of doing simple and complex diagraming, easy organize them into categories. Easy create and style them, and as benetit it has a powerfull JavaScript calculation engine embedded, so styling and diagraming become a real powerfull solution for any kind of fast modelling and prototyping.
+
+Every item on diagram is an object with set of properties, some properties have influence on how item is displayed on diagram. Some properties are user defined data, properties could depend on calculations and other items and properties.
+
+In general every item on diagram could be treated as a cell in electronic table, but it allow not just one formula to be used but to define any set of formal and properties to be used.
+
+
+## First steps
+
+Tenniarb is multi window application, every window manage it own file on file system. Every file has plain text structure.
+
+Simple diagram content will look like:
+
+```
+element "Simple" {
+    item "Central" {
+        font-size 30
+        marker "🎁"
+    }
+}
+```
+
+Where `element` is describing a logic structure of diagram layers embedded one into another and `item` show individual items on diagram. Syntax is pretty easy to read and write by hands, it will be described in details in Syntax Section of this document. Language used to manage content of all element, items inside file are named Tenn. It was based on well known and old Tool Command Language(TCL) and have a clean and easy to use syntax.
+
+### Main screen
+
+Main window:
+
+<Image src={imgGeneralInfo} alt="General information" inferSize quality="max" />
+
+
+Main window has following structural components:
+
+* Document logical structure:
+
+    It allows to organise diagrams, and perform logical structure with basic operations of drag & drop, duplication and naming.
+
+* Diagram with items.
+    Support ordering items with links, styles for visual representation of ideas, structures and any kind of information required.
+
+* Properties pane.
+
+    A textual representation of selected diagram, item with properties managed by Tenn language.
