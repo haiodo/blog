@@ -102,6 +102,11 @@ jobs:
 
           # Create a nojekyll file to disable Jekyll processing
           touch .nojekyll
+      - name: Configure Git authentication
+        run: |
+          cd target-repo
+          # This is the crucial step: it rewrites the remote URL to include the token for authentication
+          git remote set-url origin https://haiodo:${{ secrets.PAT_HAIODO_GITHUB_IO }}@github.com/haiodo/haiodo.github.io.git
       - name: Commit and push changes
         run: |
           cd target-repo
