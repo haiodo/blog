@@ -89,6 +89,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: haiodo/haiodo.github.io
+          token: ${{ secrets.PAT_HAIODO_GITHUB_IO }} # Personal Access Token with repo scope
           path: target-repo
       - name: Copy build files to target repository
         run: |
