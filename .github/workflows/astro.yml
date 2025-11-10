@@ -70,7 +70,7 @@ jobs:
             --base "/"
         working-directory: ${{ env.BUILD_PATH }}
       - name: Save build files
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: build-files
           path: ${{ env.BUILD_PATH }}/dist
@@ -81,7 +81,7 @@ jobs:
     name: Deploy
     steps:
       - name: Download build files
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: build-files
           path: dist
