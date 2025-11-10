@@ -60,31 +60,53 @@ jobs:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
           cache-dependency-path: ${{ env.BUILD_PATH }}/${{ steps.detect-package-manager.outputs.lockfile }}
-      - name: Setup Pages
-        id: pages
-        uses: actions/configure-pages@v5
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         working-directory: ${{ env.BUILD_PATH }}
       - name: Build with Astro
         run: |
           ${{ steps.detect-package-manager.outputs.runner }} astro build \
-            --site "${{ steps.pages.outputs.origin }}" \
-            --base "${{ steps.pages.outputs.base_path }}"
+            --site "https://haiodo.github.io" \
+            --base "/"
         working-directory: ${{ env.BUILD_PATH }}
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Save build files
+        uses: actions/upload-artifact@v3
         with:
+          name: build-files
           path: ${{ env.BUILD_PATH }}/dist
 
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     needs: build
     runs-on: ubuntu-latest
     name: Deploy
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Download build files
+        uses: actions/download-artifact@v3
+        with:
+          name: build-files
+          path: dist
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          repository: haiodo/haiodo.github.io
+          token: ${{ secrets.PAT }} # Personal Access Token with repo scope
+          path: target-repo
+      - name: Copy build files to target repository
+        run: |
+          # Clean the target repository (except for .git, .github, and CNAME)
+          cd target-repo
+          find . -maxdepth 1 -not -name ".git" -not -name ".github" -not -name "." -not -name "CNAME" -exec rm -rf {} +
+
+          # Copy the build files
+          cp -r ../dist/* .
+
+          # Create a nojekyll file to disable Jekyll processing
+          touch .nojekyll
+      - name: Commit and push changes
+        run: |
+          cd target-repo
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Deploy site from ${{ github.repository }}@${{ github.sha }}" || exit 0
+          git push
