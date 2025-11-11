@@ -40,7 +40,7 @@ jobs:
         with:
           node-version: "22"
           cache: pnpm-cache
-          cache-dependency-path: ${{ env.BUILD_PATH }}/${{ pnpm-lock.yaml }}
+          cache-dependency-path: ${{ env.BUILD_PATH }}/pnpm-lock.yaml
       - name: Install pnpm
         run: |
           npm i -g pnpm
