@@ -40,7 +40,9 @@ jobs:
         with:
           node-version: "22"
       - name: Install pnpm
-        run: npm i -g pnpm
+        run: |
+          npm i -g pnpm
+          npm install --ignore-scripts=false --foreground-scripts --verbose sharp
       - name: Install dependencies
         run: pnpm install
         working-directory: ${{ env.BUILD_PATH }}
