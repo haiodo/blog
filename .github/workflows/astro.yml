@@ -39,10 +39,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22"
+          cache: pnpm-cache
+          cache-dependency-path: ${{ env.BUILD_PATH }}/${{ pnpm-lock.yaml }}
       - name: Install pnpm
         run: |
           npm i -g pnpm
-          npm install --ignore-scripts=false --foreground-scripts sharp@0.32.5
       - name: Install dependencies
         run: pnpm install
         working-directory: ${{ env.BUILD_PATH }}
