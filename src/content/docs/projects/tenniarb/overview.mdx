@@ -1,6 +1,10 @@
 ---
 title: Tenniarb
-description: A brain map editor for MacOS
+description: Редактор мозговых карт для MacOS
+sidebar:
+  # Установить порядок для ссылки (чем ниже число, тем выше будет отображаться ссылка)
+  order: 3
+  label: Общее
 ---
 
 import { Icon } from 'astro-icon/components';
@@ -8,22 +12,22 @@ import { Image } from 'astro:assets';
 
 import imgGeneralInfo from "../../../../assets/tenniarb/general_info.png";
 
-[Tenniarb](https://github.com/haiodo/tenniarb) - A brain map editor for MacOS.
+[Tenniarb](https://github.com/haiodo/tenniarb) – Редактор мозговых карт для MacOS.
 
-#  Tenniarb - General information
+#  Tenniarb – Общая информация
 
-Tenniarb is a diagram/modelling tool, capable of doing simple and complex diagraming, easy organize them into categories. Easy create and style them, and as benetit it has a powerfull JavaScript calculation engine embedded, so styling and diagraming become a real powerfull solution for any kind of fast modelling and prototyping.
+Tenniarb – это инструмент для создания и моделирования диаграмм, способный выполнять как простые, так и сложные схемы, легко организовывать их в категории. Создавайте и стилизуйте диаграммы, а встроенный мощный движок JavaScript делает оформление и моделирование действительно эффективным решением для любого быстрого прототипирования.
 
-Every item on diagram is an object with set of properties, some properties have influence on how item is displayed on diagram. Some properties are user defined data, properties could depend on calculations and other items and properties.
+Каждый элемент диаграммы – объект с набором свойств; некоторые свойства влияют на отображение элемента. Свойства могут быть пользовательскими данными, зависеть от вычислений и других элементов.
 
-In general every item on diagram could be treated as a cell in electronic table, but it allow not just one formula to be used but to define any set of formal and properties to be used.
+В целом каждый элемент диаграммы можно рассматривать как ячейку электронного таблицы, но вместо одной формулы можно определить любой набор правил и свойств.
 
 
-## First steps
+## Первый шаг
 
-Tenniarb is multi window application, every window manage it own file on file system. Every file has plain text structure.
+Tenniarb – приложение с несколькими окнами; каждое окно управляет своим файлом в файловой системе. Каждый файл имеет простую текстовую структуру.
 
-Simple diagram content will look like:
+Простой контент диаграммы выглядит так:
 
 ```
 element "Simple" {
@@ -34,24 +38,24 @@ element "Simple" {
 }
 ```
 
-Where `element` is describing a logic structure of diagram layers embedded one into another and `item` show individual items on diagram. Syntax is pretty easy to read and write by hands, it will be described in details in Syntax Section of this document. Language used to manage content of all element, items inside file are named Tenn. It was based on well known and old Tool Command Language(TCL) and have a clean and easy to use syntax.
+Где `element` описывает логическую структуру слоёв диаграммы, вложенных друг в друга, а `item` – отдельные элементы. Синтаксис прост и удобен для чтения и ручного написания, подробно описан в разделе «Синтаксис». Язык управления содержимым всех элементов называется Tenn. Он основан на известном и старом Tool Command Language (TCL) и имеет чистый, простой в использовании синтаксис.
 
-### Main screen
+### Главное окно
 
-Main window:
+Главное окно:
 
 <Image src={imgGeneralInfo} alt="General information" inferSize quality="max" />
 
 
-Main window has following structural components:
+Главное окно состоит из следующих структурных компонентов:
 
-* Document logical structure:
+* Логическая структура документа:
 
-    It allows to organise diagrams, and perform logical structure with basic operations of drag & drop, duplication and naming.
+    Позволяет организовывать диаграммы и управлять их логической структурой с помощью простых операций drag & drop, дублирования и переименования.
 
-* Diagram with items.
-    Support ordering items with links, styles for visual representation of ideas, structures and any kind of information required.
+* Диаграмма с элементами.
+    Поддержка упорядочивания элементов с ссылками, стилей для визуального представления идей, структур и любой необходимой информации.
 
-* Properties pane.
+* Панель свойств.
 
-    A textual representation of selected diagram, item with properties managed by Tenn language.
+    Текстовое представление выбранной диаграммы, элемента и управляемых свойствами через язык Tenn.

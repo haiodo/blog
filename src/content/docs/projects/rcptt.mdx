@@ -1,30 +1,30 @@
 ---
-title: RCP Testing Tool
-description: Dynamic Languages Toolkit
+title: RCPTT (RCP Testing Tool)
+description: Rich Client Platform Testing Tool
 ---
 
 import { Icon } from 'astro-icon/components';
 import { Image } from 'astro:assets';
 
-[RCPTT](https://github.com/eclipse-rcptt) => [RCPTT at Eclipse.org](https://www.eclipse.org/rcptt/)
+[RCPTT](https://github.com/eclipse-rcptt) => [RCPTT на Eclipse.org](https://www.eclipse.org/rcptt/)
 
-RCP Testing Tool is a project for GUI testing automation of Eclipse-based applications. RCPTT is fully aware about Eclipse Platform’s internals, hiding this complexity from end users and allowing QA engineers to create highly reliable UI tests at great pace.
+RCPTT – проект для автоматизации GUI‑тестирования приложений на базе Eclipse. RCPTT полностью понимает внутреннюю структуру платформы Eclipse, скрывая эту сложность от конечных пользователей и позволяя инженерам QA создавать высоконадежные UI‑тесты с большой скоростью.
 
 
-### Key features
-* Test case creation productivity – ability to record user actions at the same level of efficiency as manual script creation, ability to capture initial/final application state into reusable models for further state restoring/verification.
-* First class support of Eclipse technologies – testing tool should be aware about key concepts of Eclipse Platform, including but not limited to Workspace, Workbench, Preferences, Debug API, as well as understand the underlying UI structure, like parts of Eclipse Workbench (views, editors, toolbars) and structure of GEF/GMF/Graphiti diagrams.
-* Intelligent runtime – automatic wait of UI-triggered background asynchronous operations (including jobs, display async/timer execs, decorations, databindings, text reconcilers, text hovers, and so on)
-* Reliable results – elemination of false negatives and false positives by isolation of test cases from each other, independence on screen size/operating system, etc.
-* Maintainability – test case artifacts should be easily modifyable to reflect UI changes and be version control system friendly
-* Extensibility – provide APIs for extending tool in order to support custom widgets, contexts, reports and async primitives.
-* Continuous Integration – CI Test Runner runs tests locally and in integration with Jenkins, Hudson, or other CI tools.
+### Ключевые возможности
+* Производительность создания тестов – возможность записывать действия пользователя с тем же уровнем эффективности, что и ручное создание скриптов, а также захватывать начальное/конечное состояние приложения в переиспользуемые модели для последующего восстановления/проверки состояния.
+* Поддержка технологий Eclipse – инструмент тестирования должен знать ключевые концепции платформы Eclipse, включая Workspace, Workbench, Preferences, Debug API и понимать структуру UI, например части Workbench (views, editors, toolbars) и структуры диаграмм GEF/GMF/Graphiti.
+* Интеллектуальный runtime – автоматическое ожидание фоновых асинхронных операций, инициируемых UI (включая jobs, display async/timer execs, decorations, databindings, text reconcilers, text hovers и др.).
+* Надёжные результаты – устранение ложных отрицательных/положительных результатов за счёт изоляции тестов друг от друга, независимости от размера экрана/операционной системы и т.д.
+* Поддерживаемость – артефакты тестов легко изменяемы, чтобы отражать изменения UI и быть дружелюбными к системам контроля версий.
+* Расширяемость – предоставление API для расширения инструмента, чтобы поддерживать пользовательские виджеты, контексты, отчёты и асинхронные примитивы.
+* Непрерывная интеграция – CI Test Runner запускает тесты локально и в интеграции с Jenkins, Hudson или другими инструментами CI.
 
-### Workflow
+### Рабочий процесс
 
-A typical workflow to create a test case which should work in most cases looks like this:
+Стандартный рабочий процесс:
 
-* Capture an application state
-* Record test actions
-* Add assertions
-* More complex activities including test parameterization, extracting common pieces of functionality into reusable actions, writing test cases manually before UI, and test case debugging are also available. * Developers can extend the tool’s functionality to add record/replay support of custom widgets and capture/apply support of custom aspects of an application state.
+* Захват состояния приложения
+* Запись действий теста
+* Добавление утверждений (assertions)
+* Более сложные действия, включая параметризацию тестов, извлечение общих частей функционала в переиспользуемые действия, ручное написание тестов до UI и отладку тестов – всё это также доступно. Разработчики могут расширять функциональность инструмента, добавляя поддержку записи/воспроизведения пользовательских виджетов и захвата/применения пользовательских аспектов состояния приложения.
